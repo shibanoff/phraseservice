@@ -1,0 +1,54 @@
+linters:
+  disable-all: true
+  enable:
+    - bodyclose
+    - deadcode
+    - depguard
+    - dogsled
+    - dupl
+    - funlen
+    - gochecknoinits
+    - goconst
+    - gocritic
+    - gocyclo
+    - gofmt
+    - goimports
+    - golint
+    - goprintffuncname
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+    - lll
+    - misspell
+    - nakedret
+    - rowserrcheck
+    - scopelint
+    - staticcheck
+    - structcheck
+    - stylecheck
+    - typecheck
+    - unconvert
+    - unparam
+    - unused
+    - varcheck
+    - whitespace
+    - gochecknoglobals
+    - gocognit
+    - maligned
+    - prealloc
+    #    - wsl
+    #    - interfacer
+    #    - gomnd
+    #    - errcheck
+    #    - godox
+linters-settings:
+  gocyclo:
+    min-complexity: 7
+issues:
+  max-same-issues: 5
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - gochecknoglobals
+
