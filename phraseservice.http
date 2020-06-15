@@ -1,0 +1,65 @@
+### Correct POST request
+POST http://localhost:8080/get-phrase-hash
+Content-Type: application/json
+
+{
+  "phrase" : "Hello, phrase service!"
+}
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+
+client.test("Response content-type is json", function() {
+  var type = response.contentType.mimeType;
+  client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+});
+%}
+
+### GET request
+GET http://localhost:8080/get-phrase-hash
+
+> {%
+client.test("GET request denied", function() {
+  client.assert(response.status === 405, "Response status is not 405");
+});
+%}
+
+### POST request with corrupted json
+POST http://localhost:8080/get-phrase-hash
+Content-Type: application/json
+
+{
+  "phrase" : "Hello, phrase service!"}
+}
+
+> {%
+client.test("Request with corrupted body return 500", function() {
+  client.assert(response.status === 500, "Response status is not 500");
+});
+
+client.test("Request with corrupted body has error", function() {
+  var body = JSON.parse(response.body);
+  client.assert(body.Error, "Expected 'Error' in body");
+});
+%}
+
+### POST request with invalid data
+POST http://localhost:8080/get-phrase-hash
+Content-Type: application/json
+
+{}
+
+> {%
+client.test("Request with invalid data get 422", function() {
+  client.assert(response.status === 422, "Response status is not 422");
+});
+
+client.test("Request with invalid data has error with validation message", function() {
+  var body = JSON.parse(response.body);
+  client.assert(body.Error, "Expected 'Error' in body");
+});
+%}
+###
+
