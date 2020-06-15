@@ -1,0 +1,8 @@
+.idea
+.git
+phraseservice.http
+docker-compose.yml
+Dockerfile
+README.md
+.golangci.yml
+.dockerignore

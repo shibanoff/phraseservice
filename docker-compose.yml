@@ -1,0 +1,7 @@
+version: "3.7"
+services:
+  phrase:
+    container_name: phrase_service
+    build: "."
+    ports:
+      - "8080:8080"
